@@ -1,0 +1,12 @@
+<div class="card-container" #container>
+    <div class="loader" *ngIf="!mainLoaded">
+        <app-loading-dots [type]="previewLoaded ? 'ripple' : 'circles'"></app-loading-dots>
+    </div>
+    <div class="img-container" [class.loaded]="previewLoaded || mainLoaded" *ngIf="_previewImgSrc || _imgSrc">
+        <img *ngIf="mainLoaded" [src]="_imgSrc" />
+        <img *ngIf="!mainLoaded" (load)="onPreviewLoaded()" [src]="_previewImgSrc" />
+    </div>
+    <div class="img-title">
+        {{ title || 'Untitled GIF' }}
+    </div>
+</div>

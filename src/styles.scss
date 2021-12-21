@@ -2,3 +2,43 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+@import '~@ng-select/ng-select/themes/default.theme.css';
+
+:root {
+    --primary: #8411ff;
+    --primary-disabled: #6425a1;
+    --background-dark: #1e1e1e;
+    --gray-dark: #171717;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--background-dark);
+}
+
+.pagination {
+    .page-item {
+        .page-link {
+            background-color: black;
+            border: none;
+            padding: 18px;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        &.active {
+            .page-link {
+                color: white;
+                background-color: var(--primary);
+            }
+        }
+        &.disabled {
+            .page-link {
+                color: var(--primary-disabled);
+                background-color: var(--gray-dark);
+            }
+        }
+    }
+}

@@ -1,0 +1,54 @@
+<div class="page-wrapper">
+    <div class="content">
+        <div class="header-bar">
+            <ng-select
+                #searchBox
+                class="search-box"
+                (search)="onTagsAutocomplete($event.term)"
+                [markFirst]="true"
+                [hideSelected]="true"
+                [placeholder]="'Search gifs'"
+                [notFoundText]="'Start typing something..'"
+                [multiple]="true"
+                [maxSelectedItems]="4"
+                [ngModel]="selectedTags$ | async"
+                (ngModelChange)="onTagsChange($event)"
+            >
+                <ng-option *ngFor="let tag of tagsOptions$ | async" [value]="tag">{{ tag }}</ng-option>
+            </ng-select>
+            <app-loading-bar *ngIf="loading$ | async"></app-loading-bar>
+        </div>
+
+        <ng-container *ngIf="(loading$ | async) === true || (itemsCount$ | async); else notFound">
+            <div class="items-grid">
+                <div class="grid-cell" *ngFor="let item of items$ | async; trackBy: trackByFn">
+                    <ng-container *ngIf="item">
+                        <app-giphy-card
+                            [imgSrc]="item?.imgSrc"
+                            [title]="item?.title"
+                            [previewImgSrc]="item?.previewSrc"
+                        >
+                        </app-giphy-card>
+                    </ng-container>
+                </div>
+            </div>
+
+            <ng-container *ngIf="itemsCount$ | async as count">
+                <ngb-pagination
+                    *ngIf="page$ | async as page"
+                    [maxSize]="10"
+                    [page]="page"
+                    (pageChange)="onPageChange($event)"
+                    [pageSize]="9"
+                    [collectionSize]="count"
+                ></ngb-pagination>
+            </ng-container>
+        </ng-container>
+
+        <ng-template #notFound>
+            <div class="not-found">
+                <h2>No GIFs found</h2>
+            </div>
+        </ng-template>
+    </div>
+</div>

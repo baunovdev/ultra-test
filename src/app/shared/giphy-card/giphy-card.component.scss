@@ -1,0 +1,65 @@
+:host {
+    display: block;
+}
+
+.card-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+
+    .loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .img-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.35s ease-in-out;
+        img {
+            height: 100%;
+            width: auto;
+        }
+
+        &.loaded {
+            opacity: 1;
+        }
+    }
+
+    &:hover {
+        .img-title {
+            transform: translateY(0);
+        }
+    }
+
+    .img-title {
+        position: absolute;
+        transform: translateY(80px);
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        min-height: 40px;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        z-index: 100;
+        transition: transform 0.2s ease;
+    }
+}
